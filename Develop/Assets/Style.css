@@ -51,7 +51,6 @@ h3 {
     font-size: 25px;
     margin: 5px;
     text-decoration: underline;
-
 }
 
 h4 {
@@ -63,17 +62,19 @@ h5 {
     font-size: 20px;
     background-color: #f2eecb;
     border-style: groove;
-
 }
+
 /*buttons*/
 a {
     margin: 5px 15px 10px 15px;
     padding: 5px;
 }
+
 a:hover {
     background-color: #f2eecb;
     border-radius: 5px;
 }
+
 button {
     border: solid #b5a642;
     border-radius: 20px;
@@ -87,8 +88,6 @@ button {
 
 button:hover {
     background-color:  #3a53ae;
-
-
 }
 
 img {

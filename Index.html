@@ -17,53 +17,53 @@
         <a id="favorites-list" href="#favorites">Favorites List</a>
     </header>
     <main id="home-page" data-state="visible">
+        <!--criteria section-->
         <div id="criteria-section">
             <h2 class="looking-for">If you know what you are looking for:</h2>
-           
-        <button class="btn">Search with criteria!</button>
-
+            <button class="btn">Search with criteria!</button>
+        </div>
+        <!--modal-->
         <div class="modal">
             <div class="modal-background"></div>
             <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title">Search for a book with specific criteria!</p>
-                <button class="delete" aria-label="close"></button>
-              </header>
-              <section class="modal-card-body">
-                <h5><strong>Explanation: </strong>This box will give you a random book based on the criteria you enter in the fields below.</h5></br>
-                <p><strong>Title: </strong>Returns a book with a title that contains any word or words that are typed in the search bar.</p></br>
-                <p><strong>Author: </strong>Returns a book whose author's name contains any of the words typed in the search bar. This also will return a publisher as well..</p></br>
-                <p><strong>Subject: </strong>Returns a book that is related to the word or words that are typed in the search bar.</p></br>
-                <form id="search-form">
-                    <input id="search-input" class="form-input" placeholder="Search!">
-                    <select id="format-input" class="form-input">
-                        <option value="" disabled selected>Categories</option>
-                        <option value="title">Title</option>
-                        <option value="author">Author</option>
-                        <option value="subject">Subject</option>
-                    </select>
-                    <button class = "search">Search</button>
-                </form>
-              </section>
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Search for a book with specific criteria!</p>
+                    <button class="delete" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <h5><strong>Explanation: </strong>This box will give you a random book based on the criteria you enter in the fields below.</h5>
+                    </br>
+                    <p><strong>Title: </strong>Returns a book with a title that contains any word or words that are typed in the search bar.</p>
+                    </br>
+                    <p><strong>Author: </strong>Returns a book whose author's name contains any of the words typed in the search bar. This also will return a publisher as well..</p>
+                    </br>
+                    <p><strong>Subject: </strong>Returns a book that is related to the word or words that are typed in the search bar.</p>
+                    </br>
+                    <form id="search-form">
+                        <input id="search-input" class="form-input" placeholder="Search!">
+                        <select id="format-input" class="form-input">
+                            <option value="" disabled selected>Categories</option>
+                            <option value="title">Title</option>
+                            <option value="author">Author</option>
+                            <option value="subject">Subject</option>
+                        </select>
+                        <button class = "search">Search</button>
+                    </form>
+                </section>
             </div>
-          </div>
         </div>
-
-
-
+        <!--best seller section-->
         <div id="best-seller">
             <h2 class="looking-for">If you do not know what you are looking for:</h2>
             <button class="btn-2">NYT Best Seller Random Book</button>
         </div>
     </main>
-
+    <!--favorites list-->
     <section class="columns is-multiline is-mobile" id="favorites" data-state="hidden">
         <div></div>
-        
     </section>
 
     <script src="./Develop/Assets/javascript.js"></script>
     
-
 </body>
 </html>

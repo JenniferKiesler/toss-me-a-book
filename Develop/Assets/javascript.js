@@ -1,6 +1,6 @@
 var criteriaBtn = document.querySelector('.btn');
 var randomBtn = document.querySelector('.btn-2');
-var body = document.querySelector('body')
+var body = document.querySelector('body');
 var favoritesLink = document.getElementById('favorites-list');
 var homeLink = document.getElementById('home');
 var homePage = document.getElementById('home-page');
@@ -16,18 +16,18 @@ homePage.appendChild(results);
 
 var APIKey = 'wb2uvHErZufqaDA4aEQjDBE7jQBpEfkX';
 var isbnNum = "";
-var favorites = []
+var favorites = [];
 
 // saves the cover and title of random book to local storage
 function saveRandomBook(randomBook) {
-    console.log(isbnNum)
+    console.log(isbnNum);
     isbnNum = {
         cover: randomBook.book_image,
         title: randomBook.title
-    }
-    console.log(isbnNum)
+    };
+    console.log(isbnNum);
     favorites.push(isbnNum);
-    console.log(favorites)
+    console.log(favorites);
     localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
@@ -43,11 +43,11 @@ function getSavedBooks() {
 
 // renders the cover and title of the random books saved to local storage to favorites list
 function renderFavorites() {
-    favoritesList.innerHTML = ""
+    favoritesList.innerHTML = "";
 
     for (var i = 0; i < favorites.length; i++) {
         var savedBook = favorites[i];
-        console.log(savedBook)
+        console.log(savedBook);
 
         var card = document.createElement('div');
         card.setAttribute('class', 'card column is-full');
@@ -57,86 +57,86 @@ function renderFavorites() {
         cardImg.setAttribute('class', 'card-image');
         card.appendChild(cardImg);
 
-        var figure = document.createElement('figure')
-        figure.setAttribute('class', 'image is-4by3')
-        cardImg.appendChild(figure)
+        var figure = document.createElement('figure');
+        figure.setAttribute('class', 'image is-4by3');
+        cardImg.appendChild(figure);
 
         var coverImg = document.createElement('img');
         coverImg.setAttribute('src', savedBook.cover);
         coverImg.setAttribute('alt', 'Book image not found for' + savedBook.title);
-        figure.appendChild(coverImg)
+        figure.appendChild(coverImg);
 
-        var cardContent = document.createElement('div')
-        cardContent.setAttribute('class', 'card-content')
-        card.appendChild(cardContent)
+        var cardContent = document.createElement('div');
+        cardContent.setAttribute('class', 'card-content');
+        card.appendChild(cardContent);
 
-        var cardMedia = document.createElement('div')
-        cardMedia.setAttribute('class', 'media')
-        cardContent.appendChild(cardMedia)
+        var cardMedia = document.createElement('div');
+        cardMedia.setAttribute('class', 'media');
+        cardContent.appendChild(cardMedia);
 
-        var mediaContent = document.createElement('div')
-        mediaContent.setAttribute('class', 'media-content')
-        cardMedia.appendChild(mediaContent)
+        var mediaContent = document.createElement('div');
+        mediaContent.setAttribute('class', 'media-content');
+        cardMedia.appendChild(mediaContent);
 
         var favoriteTitle = document.createElement('p');
-        favoriteTitle.setAttribute('class', 'title is-4')
+        favoriteTitle.setAttribute('class', 'title is-4');
         favoriteTitle.textContent = savedBook.title;
         card.appendChild(favoriteTitle);
 
         var clearBtn = document.createElement('button');
-        clearBtn.setAttribute('class', i)
+        clearBtn.setAttribute('class', i);
         clearBtn.textContent = 'Delete';
-        card.appendChild(clearBtn)
+        card.appendChild(clearBtn);
         
         // deletes the corresponding book from local storage and favorites list
         clearBtn.addEventListener('click', function(event) {
             var btnNum = Number(event.target.getAttribute('class'));
-            console.log(btnNum)
+            console.log(btnNum);
             favorites.splice(btnNum, 1);
-            console.log(favorites)
+            console.log(favorites);
             localStorage.setItem('favorites', JSON.stringify(favorites));
-            renderFavorites()
-            console.log('delete')
+            renderFavorites();
         })
     }
-    
 }
 
+// removes last object in favorites[]
 function removeFavorite() {
     favorites.pop();
-    console.log(favorites)
+    console.log(favorites);
 }
 
+// gets random book using criteria
 function getCriteriaBook(event) {
-    event.preventDefault()
-    modal.classList.remove('is-active')
+    event.preventDefault();
+    modal.classList.remove('is-active');
 
     // clears the results section
     while (results.hasChildNodes()) {
         results.removeChild(results.firstChild);
     }
 
-    var inputValue = searchInput.value 
-    console.log(inputValue)
+    var inputValue = searchInput.value;
+    console.log(inputValue);
 
-    var selectValue = selectCat.value
-    console.log(selectValue)
+    var selectValue = selectCat.value;
+    console.log(selectValue);
 
     fetch('https://openlibrary.org/search.json?' + selectValue + "=" + inputValue)
     .then(function(response){
         return response.json();
     })
     .then(function(book){
-        console.log(book)
-        var listBooks = book.docs
-        console.log(listBooks)
-        var bookRandom = listBooks[Math.floor(Math.random() * listBooks.length)]
-        console.log(bookRandom)
+        console.log(book);
+        var listBooks = book.docs;
+        console.log(listBooks);
+        var bookRandom = listBooks[Math.floor(Math.random() * listBooks.length)];
+        console.log(bookRandom);
 
 
         var criteriaImage = document.createElement('img');
-        criteriaImage.setAttribute('src', 'https://covers.openlibrary.org/b/isbn/' + bookRandom.isbn[0] + '-L.jpg')
-        results.appendChild(criteriaImage)
+        criteriaImage.setAttribute('src', 'https://covers.openlibrary.org/b/isbn/' + bookRandom.isbn[0] + '-L.jpg');
+        results.appendChild(criteriaImage);
 
         var criteriaTitle = document.createElement('h2');
         criteriaTitle.textContent = bookRandom.title;
@@ -150,24 +150,13 @@ function getCriteriaBook(event) {
         newBookBtn.textContent = 'Choose New Book';
         results.appendChild(newBookBtn);
 
-        newBookBtn.addEventListener('click',getCriteriaBook)
-
-        favIcon.addEventListener('click', function() {
-            if (favIcon.classList.contains('fa-regular')) {
-                favIcon.classList.remove('fa-regular')
-                favIcon.classList.add('fa-solid')
-            } else if (favIcon.classList.contains('fa-solid')) {
-                favIcon.classList.remove('fa-solid')
-                favIcon.classList.add('fa-regular')
-            }
-        })
-
-
+        newBookBtn.addEventListener('click',getCriteriaBook);
     })
 }
 
+// gets random book from NYT Best Seller lists
 function getRandomBook(event) {
-    event.preventDefault()
+    event.preventDefault();
 
     // clears the results section
     while (results.hasChildNodes()) {
@@ -179,21 +168,21 @@ function getRandomBook(event) {
         return response.json();
     })
     .then(function(book) {
-        console.log(book)
-        var bookList = book.results.lists
-        console.log(bookList)
-        var randomList = bookList[Math.floor(Math.random() * bookList.length)]
-        console.log(randomList)
-        console.log(randomList.books)
-        var randomBook = randomList.books[Math.floor(Math.random() * randomList.books.length)]
-        console.log(randomBook)
+        console.log(book);
+        var bookList = book.results.lists;
+        console.log(bookList);
+        var randomList = bookList[Math.floor(Math.random() * bookList.length)];
+        console.log(randomList);
+        console.log(randomList.books);
+        var randomBook = randomList.books[Math.floor(Math.random() * randomList.books.length)];
+        console.log(randomBook);
 
-        isbnNum = randomBook.primary_isbn13
+        isbnNum = randomBook.primary_isbn13;
 
         var img = document.createElement('img');
         img.setAttribute('src', randomBook.book_image);
         img.setAttribute('alt', 'Book image not found for' + randomBook.title);
-        results.appendChild(img)
+        results.appendChild(img);
 
         var title = document.createElement('h3');
         title.textContent = randomBook.title;
@@ -221,46 +210,44 @@ function getRandomBook(event) {
         favIcon.setAttribute('class', 'fa-regular fa-heart');
         results.appendChild(favIcon);
 
-        newBookBtn.addEventListener('click',getRandomBook)
+        newBookBtn.addEventListener('click',getRandomBook);
 
         // toggles between filled in and not filled in heart icon
         favIcon.addEventListener('click', function() {
             if (favIcon.classList.contains('fa-regular')) {
-                favIcon.classList.remove('fa-regular')
-                favIcon.classList.add('fa-solid')
-                saveRandomBook(randomBook)
+                favIcon.classList.remove('fa-regular');
+                favIcon.classList.add('fa-solid');
+                saveRandomBook(randomBook);
             } else if (favIcon.classList.contains('fa-solid')) {
-                favIcon.classList.remove('fa-solid')
-                favIcon.classList.add('fa-regular')
-                removeFavorite()
+                favIcon.classList.remove('fa-solid');
+                favIcon.classList.add('fa-regular');
+                removeFavorite();
             }
         })
-
     })
 }
 
-
-randomBtn.addEventListener('click', getRandomBook)
+randomBtn.addEventListener('click', getRandomBook);
 
 favoritesLink.addEventListener('click', function() {
     homePage.setAttribute('data-state', 'hidden');
     favoritesList.setAttribute('data-state', 'visible');
-    getSavedBooks()
-    renderFavorites()
+    getSavedBooks();
+    renderFavorites();
 })
 
 homeLink.addEventListener('click', function() {
     homePage.setAttribute('data-state', 'visible');
     favoritesList.setAttribute('data-state', 'hidden');
-    favoritesList.innerHTML = ""
+    favoritesList.innerHTML = "";
 })
 
 criteriaBtn.addEventListener('click', function() {
-    modal.classList.add('is-active')
-    searchBtn.addEventListener('click', getCriteriaBook)
+    modal.classList.add('is-active');
+    searchBtn.addEventListener('click', getCriteriaBook);
     closeBtn.addEventListener('click', function() {
-        modal.classList.remove('is-active')
+        modal.classList.remove('is-active');
     })
 })
 
-getSavedBooks()
+getSavedBooks();
